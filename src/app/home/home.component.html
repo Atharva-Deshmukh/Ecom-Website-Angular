@@ -1,0 +1,62 @@
+<!-- CAROUSAL CODE IS COPIED FROM ANGULAR BOOTSTRAP/COMPONENTS/CAROUSAL -->
+
+
+<!-- if data hai popular products me to hi ye carousal dikhaana bcoz carousal yehi show karega ki konse products popular hai -->
+
+<!-- code me 3 images thi but we are using loop instead to make it dynamic-->
+
+<!-- Popular products here -->
+<ngb-carousel *ngIf="popularProducts">
+	<ng-template *ngFor="let item of popularProducts"  ngbSlide>
+		<div class="picsum-img-wrapper">
+            <a routerLink="/details/{{item.id}}">	<img class="product-header-image" src="{{item.image}}" alt="Random first slide" /> </a>
+		</div>
+        <br><br><br><br><br><br>
+		<div class="carousel-caption">
+			<h3>{{item.name}}</h3>
+			<p>{{item.description}}</p>
+		</div>
+	</ng-template>
+</ngb-carousel>
+
+<br><br>
+<!-- Product list for purchase -->
+<div class="product-list-wrapper">
+    <h1>Trendy Products You may Buy</h1> <br><br>
+
+    <!-- row is bootstrap class that displays content in new row when space gets over -->
+    <div class="row">
+        <!--  col-sm-3 (1 se 12) is bootstrap class that wraps content in %. 3 takes 25% of screen-->
+
+        <!-- product -->
+        <div class="col-sm-3" *ngFor="let item of trendyProducts">
+
+            
+            <div class="product-item">
+
+                <!-- product image -->
+                <img src="{{item.image}}" alt="image here">
+
+                <!-- product Details -->
+                <div class="product-details">
+                    <h6 class="name-head">{{item.name}}</h6>
+
+                            <div class="product-price">
+                            <h6>Price:{{item.price}}</h6>
+                            </div>
+
+                            <div class="product-color">
+                            <h6>Color:{{item.color}}</h6>
+                            </div>
+
+                </div>
+                <div class="product-footer">
+                    <a routerLink="/details/{{item.id}}">View Details</a>
+                    <a href="">Add to Cart</a>
+            </div>
+        </div>
+
+    </div>
+
+
+</div>

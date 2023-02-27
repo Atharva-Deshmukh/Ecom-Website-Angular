@@ -1,0 +1,61 @@
+<nav class="nav">
+
+  <!-- LOGO pe click kiye to vo home pe jaana chaiye -->
+    <h1><a routerLink="home">E-Comm</a> </h1>
+
+    <!-- ye wala navigation bar tabhi dikhaaye jab normal user ho not seller. Seller ke liye alag hoga -->
+    <div *ngIf="menuType==='default'" class="nav-search">
+
+      <!-- here I am capturing input to enable autosuggestion feature -->
+
+      <!-- (keyup) event => When a user presses and releases a key, the (keyup) event occurs. For using in text-based input controls it is generally used to get values after every keystroke.  -->
+      <input type="text" #searchInput  (keyup)="searchedProduct($event)" (blur)="hideSearch()"  placeholder="Search for products"/>
+
+      <!-- submitsearch() gets value of what we searched and then redirects to that page -->
+      <button (click)="submitSearch(searchInput.value)">Search</button>
+
+      <!-- displaying autosuggestion using <ul> -->
+
+      <!-- *ngFor="let item as searchedResult" -->
+        
+      <!-- suggestions pe click kiye to bhi vo directly search pe jaa sakta hai -->
+      <ul  class="suggested-search" >
+        <li *ngFor="let item of searchedResult">
+          <!-- The ng-mousedown directive tells AngularJS what to do when a mouse button is clicked on the specific HTML element -->
+          <a (mousedown)="redirectToDetails(item.id)">{{item.name}}</a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- har type ke user ke liye alag menus honge hence humne switch case lagaaya hai -->
+    <div [ngSwitch]="menuType">
+
+      <!-- this menu is for unloggedIn users. Jo sirf dekhne aaye website ko -->
+      <ul *ngSwitchCase="'default'">
+        <li><a routerLink="seller-auth">Seller</a></li>
+        <li><a routerLink="home">Home</a></li>
+        <li><a routerLink="/user-auth">Login/SignUp</a></li>
+        <li><a routerLink="cart-page">Cart({{cartItems}})</a></li>
+      </ul>
+
+      <!-- this menu is for Logged in user -->
+      <ul *ngSwitchCase="'user'">
+        <li><a routerLink="home">Home</a></li>
+        <li><a routerLink="/user-auth">{{userName | titlecase}}</a></li>  <!-- Displays User name -->
+        <li><a (click)="userLogout()">Logout</a></li>
+        <li><a routerLink="cart-page">Cart({{cartItems}})</a></li>
+      </ul>
+
+      <!-- this menu is for sellers -->
+      <ul *ngSwitchCase="'seller'">
+        <li><a routerLink="seller-add-product">Add product</a></li>
+        <li><a routerLink="seller-home">List</a></li>
+        <li><a (click)="sellerLogout()">Logout</a></li>
+
+        <!-- titlecase makes first letter of sellername capital directly -->
+        <li><a href="#">{{sellerName | titlecase }}</a></li>
+      </ul>
+
+    </div>
+    
+  </nav>

@@ -1,0 +1,86 @@
+<div class="user-auth">
+    <div *ngIf="!showLogin"  class="sign-up">
+     <h1>User Signup</h1>
+
+     <!-- The ng-model directive binds the value of HTML controls (input, select, textarea) to application data. -->
+
+     <form #userSignUp="ngForm" (ngSubmit)="signUp(userSignUp.value)" class="common-form">
+       <input
+         type="text"
+         class="form-input"
+         name="name"
+         placeholder="Enter User Name"
+         ngModel
+       />
+       <input
+         type="text"
+         class="form-input"
+         name="email"
+         placeholder="Enter User Email"
+         ngModel
+       />
+       <input
+       type="password"
+       class="form-input"
+       name="password"
+       placeholder="Enter User Password"
+       ngModel
+     />
+
+     <button class="form-button">Sign Up</button>
+
+     <p>Already Have Account ? <a (click)="openLogin()" >Click Here</a></p>
+     </form>
+    </div>
+
+
+    <!-- Template driven forms hi bnaye hai humne and in those forms, validation is done in HTML part -->
+  
+    <div *ngIf="showLogin"  class="login">
+     <h1>User Login</h1>
+     <form #userLogin="ngForm" class="common-form" (ngSubmit)="login(userLogin.value)">
+       <p class="error-p">{{authError}}</p>
+
+       <!-- KSI bhi field pe validation lagaane se pehle uska naam rakho using #
+    jaise #email and give it ngModel value
+   then usme agar required chaiye to vo add karo -->
+   <!-- line 56 -> proper email input hua ki nhi vo dekhne ke liye -->
+       <input
+         type="text"
+         class="form-input"
+         name="email"
+         placeholder="Enter User Email"
+         ngModel
+         #email="ngModel"
+         required  
+         email       
+       />
+       <!-- <p><span>{{email.invalid}}</span></p> -->
+       <!-- jaise console.warn() se check karte the o/p. vaise hi name.invalid se apan check karte result. Ex:
+  email.invalid agar true diya matlab vo invalid hai yaani abhi bhi khaali hai jabki required hai. display it using <span> -->
+
+      <!--We don't want this message when user enters this page.Agar true hai and user ne touch karke uske box ke bahaar cusror laaya tab hi vo message aayga -->
+       <p class="invalid-input"><span *ngIf="email.invalid && email.touched">email REQUIRED</span></p>
+      <!-- this invalid input class is kept in styles.css in order to be accessible by all forms -->
+
+       <input
+       type="password"
+       class="form-input"
+       name="password"
+       placeholder="Enter User Password"
+       ngModel
+
+       #password="ngModel"
+       required
+       minlength="2"
+       maxlength="20"
+     />
+     <p class="invalid-input"><span *ngIf="password.invalid && password.touched">password REQUIRED</span></p>
+
+     <!-- ab button bhi proper time pe disable honi chaiye in case inputs are INVALID -->
+     <!-- style of button after being disabled is added in styles.css -->
+     <button [disabled]="userLogin.invalid" class="form-button">Login</button>
+     <p>Want to Create Account ? <a (click)="openSignUp()" >Click Here</a></p>
+     </form>
+    </div>
+</div>

@@ -1,0 +1,40 @@
+<!-- agar productData NULL nhi hai to hi aage badho -->
+<div class="row product-details" *ngIf="productData"> 
+    
+    <!-- image -->
+    <div class="col-sm-6">
+      <img  class="product-img" src="{{productData.image}}" alt="">
+    </div>
+
+    <!-- details -->
+    <div class="col-sm-6">
+        <div class="details">
+            <h1>{{productData.name}}</h1>
+            <h3>Price : {{productData.price}}</h3>
+
+            <!-- vo chota sa color wala golaa -->
+            <!-- We added dynamic color here -->
+            <div>Color :<h3 [style.backgroundColor]="productData.color" class="product-color"></h3></div>
+
+            <h6>Category : {{productData.category}}</h6>
+            <h6>Description : {{productData.description}}</h6>
+
+            <!-- remove cart agar false hai to add to cart dikhao -->
+            <button *ngIf="!removeCart" (click)="AddToCart()" class="form-button">Add to Cart</button>
+            <button *ngIf="removeCart" (click)="RemoveFromCart(productData.id)" class="form-button">Remove from Cart</button>
+
+            <button class="form-button">Buy Now</button>
+
+            <!--    ((- ||_____|| +)) -->
+            <div class="quantity-group">
+                <button (click)="handleQuantity('min')">-</button>
+                <input type="text" value="{{productQuantity}}"/>
+                <button (click)="handleQuantity('plus')">+</button>
+    
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

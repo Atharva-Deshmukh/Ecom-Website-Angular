@@ -1,0 +1,73 @@
+<div class="seller-auth">
+    <div *ngIf="!showLogin" class="sign-up">
+      
+        <h1>Seller sign-up</h1>
+
+        <!-- jo css part common rakhna hai usko styles.css me dalo direct rather than putting it in individual component -->
+
+        <!-- #sellerSignUp se humne usko ek naam diya hai and us inverted commas me humesha ngForm hi likhna -->
+
+        <!-- Ye (ngSubmit) event humne bnaya hai jo form ki values ko capture karke submit maarega using our signUp() -->
+      <form  #sellerSignUp="ngForm" (ngSubmit)="signUp(sellerSignUp.value)" class="common-form">
+        
+        <!-- ngModel se jitni bhi fields hai vo aapas me connect/bind ho jaaygi -->
+        <input
+          type="text"
+          class="form-input"
+          placeholder="Enter Name"
+          name="name"
+          ngModel 
+        />
+
+        <input
+          type="text"
+          class="form-input"
+          placeholder="Enter Email"
+          name="email"
+          ngModel
+        />
+
+        <input
+          type="password"
+          class="form-input"
+          placeholder="Enter Password"
+          name="password"
+          ngModel
+        />
+
+        <button class="form-button">Sign Up</button>
+
+        <a (click)="openLogin()" class="auth-toggle-link" >Already have account? Click for Login</a>
+      </form>
+    </div>
+  
+    <div *ngIf="showLogin" class="login">
+      <h1>Seller Login</h1>
+      <p class="error-p">{{authError}}</p>
+      <form  #sellerLogin="ngForm" (ngSubmit)="login(sellerLogin.value)" class="common-form">
+        
+        <!-- ngModel se jitni bhi fields hai vo aapas me connect/bind ho jaaygi -->
+
+        <input
+          type="text"
+          class="form-input"
+          placeholder="Enter Email"
+          name="email"
+          ngModel
+        />
+
+        <input
+          type="password"
+          class="form-input"
+          placeholder="Enter Password"
+          name="password"
+          ngModel
+        />
+
+        <button class="form-button">Log In</button>
+
+        <a (click)="openSignUp()" class="auth-toggle-link"> Don't have account? Sign Up</a>
+
+      </form>
+    </div> 
+  </div>
